@@ -1,0 +1,55 @@
+@startuml = plantuml
+
+class Usuarios {
+    + id_usuario: int (PK)
+    + nombre_usuario: string
+    + correo: string
+    + telefono: string
+}
+
+class Libros {
+    + id_libro: int (PK)
+    + titulo: string
+    + id_autor: int (FK)
+    + id_usuario: int (FK)
+    + año_publicacion: int
+    + editorial: string
+    + idioma: string
+}
+
+class Reseña {
+    + id_reseña: int (PK)
+    + id_usuario: int (FK)
+    + id_libro: int (FK)
+    + descripcion: string
+    + calificacion: int
+ 
+}
+
+class Autores {
+    + id_autor: int (PK)
+    + nombre_autor: string
+    + edad: int
+    + nacionalidad: string
+}
+
+class Categorías {
+    + id_categoria: int (PK)
+    + nombre_categoria: string
+    + descripcion: string
+}
+
+class Libros_Categorías {
+    + id_libro: int (PK, FK)
+    + id_categoria: int (PK, FK)
+}
+
+Usuarios "1" -- "n" Reseña : escribe
+Usuarios "1" -- "n" Libros : reserva
+Libros "n" -- "1" Autores : pertenece_a
+Libros "n" -- "n" Categorías : clasificado_en
+Libros "1" -- "n" Reseña : tiene
+Libros_Categorías "n" -- "n" Categorías : incluye
+Libros_Categorías "n" -- "n" Libros : pertenece_a
+
+@enduml
